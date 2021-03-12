@@ -89,6 +89,8 @@ The document-topic distributions are available in ``model.doc_topic_``.
 Guided LDA Example:
 ===================
 
+**This edit stems from the following work around:** https://github.com/dex314/GuidedLDA_WorkAround
+
 .. code-block:: python
 
     import numpy as np
