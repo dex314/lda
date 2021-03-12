@@ -86,6 +86,42 @@ The document-topic distributions are available in ``model.doc_topic_``.
     9 UK: Charles under fire over prospect of Queen Camilla. LONDON 1996-08-26 (top topic: 8)
 
 
+Guided LDA Example:
+===================
+
+.. code-block:: python
+
+    import numpy as np
+    from lda import guidedlda as glda
+    ##from lda import glda_datasets as gldad
+    ##X = gldad.load_data(gldad.NYT)
+    ##vocab = gldad.load_vocab(gldad.NYT)</s>
+
+    ## !!!! Update courtesy of @senjed !!!!
+
+    import lda.datasets as gldad
+    X = gldad.load_reuters()
+    vocab = gldad.load_reuters_vocab()
+
+    word2id = dict((v, idx) for idx, v in enumerate(vocab))
+    print(X[:10])
+
+    print("TESTING....")
+    seed_topic_list = [['game', 'team', 'win', 'player', 'season', 'second', 'victory'],
+                       ['percent', 'company', 'market', 'price', 'sell', 'business', 'stock', 'share'],
+                       ['music', 'write', 'art', 'book', 'world', 'film'],
+                       ['political', 'government', 'leader', 'official', 'state', 'country',
+                        'american','case', 'law', 'police', 'charge', 'officer', 'kill', 'arrest', 'lawyer']]
+
+    model = glda.GuidedLDA(n_topics=5, n_iter=100, random_state=7, refresh=20)
+
+    seed_topics = {}
+    for t_id, st in enumerate(seed_topic_list):
+        for word in st:
+            seed_topics[word2id[word]] = t_id
+
+    model.fit(X, seed_topics=seed_topics, seed_confidence=0.15)
+
 Requirements
 ------------
 
